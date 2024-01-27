@@ -16,14 +16,13 @@ trait RespondApi
             'server_time' => Carbon::now()->toDateTimeString(),
         ];
 
-        $data->response()->setStatusCode($status);
-
         if (is_string($data)) {
             $structuredData['message'] = $data;
 
             return response()->json($structuredData, $status);
         }
 
+        $data->response()->setStatusCode($status);
         $structuredData['data'] = $data;
 
         return response()->json($structuredData, $status);
