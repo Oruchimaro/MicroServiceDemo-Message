@@ -3,10 +3,21 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class MessageTest extends TestCase
 {
+    use WithoutMiddleware;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        // disable CheckTokenMiddleware for Message related tests
+        $this->withoutMiddleware();
+    }
+
     public function test_validation_fails_when_body_params_are_empty(): void
     {
         $invalidBodyParams = [
