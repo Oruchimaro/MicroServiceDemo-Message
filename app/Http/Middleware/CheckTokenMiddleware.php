@@ -24,7 +24,7 @@ class CheckTokenMiddleware
         $response = $this->tokenValidatorService->validateToken($request->headers->get('Authorization'));
 
         if (! $response->ok()) {
-            return $this->response('unauth', 403);
+            return $this->response(__('messages.unauthenticated'), 403);
 
         }
 
