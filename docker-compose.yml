@@ -1,5 +1,6 @@
 services:
     laravel.test:
+        container_name: message21
         build:
             context: ./vendor/laravel/sail/runtimes/8.3
             dockerfile: Dockerfile
@@ -21,10 +22,12 @@ services:
             - '.:/var/www/html'
         networks:
             - messages_sail
+            - auth_net
         depends_on:
             - mysql
             - redis
     mysql:
+        container_name: message_mysql
         image: 'mysql/mysql-server:8.0'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
@@ -64,6 +67,8 @@ services:
             retries: 3
             timeout: 5s
 networks:
+    auth_net: 
+        external: true
     messages_sail:
         driver: bridge
 volumes:
